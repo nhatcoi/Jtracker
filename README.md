@@ -57,31 +57,28 @@ Jtracker is an open-source job and project tracking tool designed to streamline 
 ## Technologies Stack
 
 **Frontend:**
-- **Framework:** React.js (or your choice of Angular/Vue)
-- **State Management:** Redux (or Context API)
-- **Styling:** Bootstrap or Tailwind CSS
+- **Framework:** React.js
+- **Styling:** Bootstrap
 
 **Backend:**
-- **Runtime:** Node.js with Express.js (or Java with Spring Boot, if applicable)
+- **Runtime:** Java with Spring Boot
 - **API Architecture:** RESTful services
 
 **Database:**
-- MongoDB (or PostgreSQL/MySQL based on your preference)
+- Postgres, Firebase
 
 **DevOps & Others:**
 - **Containerization:** Docker
 - **Version Control:** Git
-- **Build Tools:** Webpack/Babel (if applicable)
+- **Build Tools:** Webpack/Babel
 - **CI/CD:** Configured pipelines for automated testing and deployment
-
-*Feel free to update this section if you’re using a different tech stack!*
 
 ---
 
 ## Features
 
 - **User Authentication & Authorization:**  
-  Secure login, registration, and role-based access control.
+  Secure login, registration.
 
 - **Task Management:**  
   Create, update, delete, and prioritize tasks with detailed descriptions and deadlines.
@@ -110,12 +107,6 @@ Jtracker is an open-source job and project tracking tool designed to streamline 
 
 To run Jtracker locally, follow these steps:
 
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) installed on your machine.
-- [MongoDB](https://www.mongodb.com/) (or your chosen database) running locally or via a cloud service.
-- [Git](https://git-scm.com/) for cloning the repository.
-
 ### Installation
 
 1. **Clone the Repository:**
@@ -125,41 +116,12 @@ To run Jtracker locally, follow these steps:
     cd Jtracker
     ```
 
-2. **Install Dependencies:**
+2. **Run Docker**
 
-   - **Backend:**
-     ```bash
-     cd backend
-     npm install
-     ```
-   - **Frontend:**
-     ```bash
-     cd ../frontend
-     npm install
-     ```
-
-3. **Configure Environment Variables:**
-
-   Create a `.env` file in the backend folder (adjust the variables as needed):
-
-    ```env
-    PORT=5000
-    MONGO_URI=mongodb://localhost:27017/jtracker
-    JWT_SECRET=your_jwt_secret
+   Delete .example in File .env and adjust the variables as needed
+   ```bash
+    docker compose up --build
     ```
-
-4. **Start the Application:**
-
-   - **Backend:**
-     ```bash
-     npm run dev
-     ```
-   - **Frontend:**
-     ```bash
-     npm start
-     ```
-
-   The application should now be accessible at [http://localhost:3000](http://localhost:3000) (or the port you configured).
 
 ---
 

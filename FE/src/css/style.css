@@ -1,0 +1,127 @@
+/* Button styles */
+.animated-button {
+    font-size: 16px;
+    padding: 1em 3.3em;
+    cursor: pointer;
+    transform: perspective(200px) rotateX(15deg);
+    color: white;
+    font-weight: 900;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(
+            0deg,
+            rgba(63, 94, 251, 1) 0%,
+            rgba(70, 135, 252, 1) 100%
+    );
+    box-shadow: rgba(63, 94, 251, 0.2) 0px 40px 29px 0px;
+    will-change: transform;
+    transition: all 0.3s;
+    border-bottom: 2px solid rgba(70, 135, 252, 1);
+    margin-top: 20px;
+}
+
+.animated-button:hover {
+    transform: perspective(180px) rotateX(30deg) translateY(2px);
+}
+
+.animated-button:active {
+    transform: perspective(170px) rotateX(36deg) translateY(5px);
+}
+
+/* Container styles */
+.frame {
+    border: 0;
+    margin-bottom: 15em;
+}
+
+.frame h1 {
+    font-size: 65px;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.frame p {
+    font-size: 18px;
+    margin-bottom: 1.5rem;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+    .frame h1 {
+        font-size: 55px; /* Smaller font for large tablets and smaller screens */
+    }
+
+    .animated-button {
+        font-size: 14px; /* Smaller button font size */
+        padding: 0.8em 2.5em; /* Adjust button padding */
+    }
+}
+
+@media (max-width: 992px) {
+    .frame h1 {
+        font-size: 45px; /* Adjust heading size for medium screens */
+    }
+
+    .frame p {
+        font-size: 16px; /* Smaller paragraph font size */
+    }
+
+    .animated-button {
+        font-size: 14px;
+        padding: 0.8em 2em;
+    }
+}
+
+@media (max-width: 768px) {
+    .frame h1 {
+        font-size: 40px; /* Smaller font size for mobile screens */
+    }
+
+    .frame p {
+        font-size: 15px; /* Even smaller paragraph font size */
+        margin-bottom: 1rem; /* Adjust margin */
+    }
+
+    .animated-button {
+        font-size: 13px;
+        padding: 0.8em 1.8em; /* Adjust padding for mobile */
+    }
+}
+
+@media (max-width: 576px) {
+    .frame h1 {
+        font-size: 35px; /* Adjust heading size for extra small screens */
+    }
+
+    .frame p {
+        font-size: 14px;
+        margin-bottom: 1rem; /* Further adjust margin for mobile */
+    }
+
+    .animated-button {
+        font-size: 12px;
+        padding: 0.8em 1.5em; /* Reduce button padding */
+    }
+}
+
+@media (max-width: 400px) {
+    .frame h1 {
+        font-size: 30px; /* Even smaller font size for very small screens */
+    }
+
+    .frame p {
+        font-size: 12px; /* Adjust paragraph text size */
+    }
+
+    .animated-button {
+        font-size: 12px;
+        padding: 0.8em 1.2em; /* Reduce padding even more */
+    }
+}

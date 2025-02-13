@@ -2,9 +2,9 @@ spring:
   application:
     name: habit_tracker
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/habit_tracker}
-    username:  ${DATABASE_USERNAME:postgres}
-    password: ${DATABASE_PASSWORD:nhatcoi123}
+    url: ${DATABASE_URL}
+    username:  ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   jpa:
     show-sql: true
     hibernate:
@@ -18,7 +18,7 @@ server:
   port: 8080
 
 jwt:
-  secret: ${JWT_SECRET_KEY:hTQTdTxhQD9Jx12CCdB3ynJOHdCzeQzVx8MI0HwTqFcY0rPw9AmzQmElutWe8y19}
+  secret: ${JWT_SECRET_KEY}
   expiration: 2592000000
   access-token-expiration: 1800000
 

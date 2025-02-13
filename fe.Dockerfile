@@ -1,5 +1,4 @@
 FROM node:18-alpine as build
-
 WORKDIR /app
 COPY FE/package.json frontend/package-lock.json ./
 RUN npm install

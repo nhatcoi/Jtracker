@@ -21,36 +21,79 @@ Jtracker is an open-source job and project tracking tool designed to streamline 
 
 ## Project Goals
 
-- **Simplify Task Management:**  
-  Provide a clean, user-friendly interface for creating, updating, and organizing tasks and projects.
+The primary objective of this Habit Tracking App is to empower users to cultivate and maintain positive habits while effectively eliminating negative ones. To achieve this, the app is designed with the following goals:
 
-- **Enhance Collaboration:**  
-  Enable teams to share updates, comment on tasks, and work together in real-time to ensure projects run smoothly.
+- **Motivate and Empower Users:**  
+  Provide a user-friendly interface that encourages setting meaningful goals and tracking daily progress, fostering a proactive approach to self-improvement.
 
-- **Boost Productivity:**  
-  Streamline workflows with customizable boards and dashboards, helping teams focus on high-priority items.
+- **Streamline Habit Management:**  
+  Enable users to easily add, edit, and delete habits, set up daily/weekly/monthly schedules, and document detailed descriptions and objectives for each habit.
 
-- **Ensure Scalability:**  
-  Build a platform that adapts to teams of all sizes—from solo developers to large organizations—with flexibility for future expansion.
+- **Deliver Data-Driven Insights:**  
+  Offer comprehensive progress tracking through features such as daily completion check-offs, streak counts, and performance charts that display trends over weeks, months, or even years.
+
+- **Enhance Engagement Through Reminders:**  
+  Integrate notifications and reminders (via push notifications or email) to help users stay on track with their scheduled habits and build consistency.
+
+- **Foster a Personalized Experience:**  
+  Allow customization options such as dark mode and personalized notification settings, ensuring that users can tailor the app to their unique preferences and lifestyles.
+
+- **Plan for Future Enhancements:**  
+  Lay the groundwork for integrating advanced features such as AI-driven habit suggestions, gamification elements (e.g., rewards, badges), and community challenges, which will further motivate users and encourage long-term engagement.
+
 
 ---
 
 ## Project Benefits
 
-- **Centralized Management:**  
-  Keep all your projects, tasks, and team communications in one place for easy tracking and monitoring.
+- **Enhanced Self-Motivation:**  
+  Daily reminders and visual progress tracking (e.g., streaks and charts) empower users to stay motivated and committed to their habit-building journey.
 
-- **Real-Time Updates:**  
-  Stay on top of changes with immediate notifications and status updates as tasks progress.
+- **Improved Habit Formation:**  
+  With customizable schedules and detailed habit descriptions, users can effectively create, manage, and sustain positive behaviors while phasing out negative ones.
 
-- **Customizable Workflows:**  
-  Adapt the tool to fit your unique processes and methodologies, whether you follow Agile, Kanban, or other frameworks.
+- **Data-Driven Insights:**  
+  Comprehensive analytics provide users with clear feedback on their performance over time, enabling them to identify trends, track progress, and make informed decisions for improvement.
 
-- **Open-Source Community:**  
-  Benefit from continuous improvements and community-driven enhancements. Contribute your ideas and features to help shape the project’s future.
+- **Personalized Experience:**  
+  Features like dark mode and customizable notification settings ensure that the app adapts to individual preferences, enhancing user satisfaction and engagement.
 
-- **Actionable Insights:**  
-  Use built-in analytics and reporting features to assess team performance and project progress, facilitating better decision-making.
+- **Boosted Productivity and Well-Being:**  
+  By promoting consistency in daily routines, the app contributes to higher productivity levels and overall improved mental and physical well-being.
+
+- **Future-Ready Flexibility:**  
+  The scalable design of the app lays the foundation for future enhancements such as AI-driven habit recommendations, gamification elements, and community challenges, further enriching the user experience.
+
+
+---
+
+## User Flow
+
+The Habit Tracking App follows a structured workflow to ensure a seamless user experience in managing and tracking habits effectively.
+
+1. **User Authentication:**  
+   - The user registers or logs into their account using email, Google OAuth
+
+2. **Habit Creation & Management:**  
+   - Users create new habits, define schedules (daily/weekly/monthly), and add descriptions or goals.  
+   - They can edit or delete existing habits as needed.
+
+3. **Data Storage & Processing:**  
+   - The system securely stores habit-related data in the database.  
+   - Scheduled tasks ensure reminders are sent on time.
+
+4. **Reminders & Notifications:**  
+   - Users receive push notifications or emails to remind them of upcoming habits.  
+   - Google Calendar integration ensures reminders appear in their personal calendar.
+
+5. **Progress Tracking & Check-ins:**  
+   - Users mark habits as completed for each day.  
+   - The app updates streak counts and success rates accordingly.
+
+6. **Data Visualization & Analytics:**  
+   - The system records completion history and displays visual insights.  
+   - Users can view habit trends through performance charts (daily, weekly, monthly).  
+
 
 ---
 
@@ -67,6 +110,9 @@ Jtracker is an open-source job and project tracking tool designed to streamline 
 **Database:**
 - Postgres, Firebase
 
+**Authentication:**
+- JWT, Firebase-Google
+
 **DevOps & Others:**
 - **Containerization:** Docker
 - **Version Control:** Git
@@ -77,29 +123,28 @@ Jtracker is an open-source job and project tracking tool designed to streamline 
 
 ## Features
 
-- **User Authentication & Authorization:**  
-  Secure login, registration.
+The Habit Tracking App offers a comprehensive set of features to help users build and maintain positive habits effectively.
 
-- **Task Management:**  
-  Create, update, delete, and prioritize tasks with detailed descriptions and deadlines.
+### **User Management**
+- **Sign Up & Login:** Secure authentication via email, Google OAuth, or other methods.
+- **Profile Customization:** Users can update personal details and preferences.
+- **Dark Mode:** Optional dark theme for a comfortable viewing experience.
 
-- **Project Organization:**  
-  Organize tasks under projects or sprints to visualize progress effectively.
+### **Habit Management**
+- **Create & Edit Habits:** Users can define new habits with detailed descriptions and goals.
+- **Set Schedules:** Customize habit frequency (daily, weekly, monthly).
+- **Delete Habits:** Remove unnecessary habits when needed.
 
-- **Collaboration Tools:**  
-  Comment on tasks, assign team members, and share resources to facilitate communication.
+### **Progress Tracking**
+- **Daily Check-ins:** Users can mark habits as completed each day.
+- **Streak System:** Track continuous habit completion over time.
+- **Performance Analytics:** View visual statistics (weekly, monthly, yearly charts) to monitor progress.
 
-- **Dynamic Dashboard:**  
-  View an at-a-glance summary of tasks, project statuses, and key performance indicators.
+### **Reminders & Notifications**
+- **Push Notifications & Emails:** Get notified about upcoming habits.
+- **Google Calendar Integration:** Sync habit reminders with personal calendars.
+- **Customizable Alerts:** Users can choose notification preferences.
 
-- **Real-Time Notifications:**  
-  Receive alerts and updates as tasks are modified or deadlines approach.
-
-- **Search & Filter:**  
-  Quickly locate tasks or projects using advanced search and filtering options.
-
-- **Responsive Design:**  
-  Fully optimized for both desktop and mobile experiences.
 
 ---
 

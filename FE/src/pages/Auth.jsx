@@ -10,7 +10,7 @@ import { auth, googleProvider } from "../util/firebase.js";
 import { signInWithPopup } from "firebase/auth";
 import apiDefault from "../util/apiDefault.js";
 import api from "../util/api.js";
-import logo from "../assests/logo.png";
+import logo from "../../public/logo.png";
 
 
 const Auth = ({ setUser }) => {

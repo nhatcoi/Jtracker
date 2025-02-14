@@ -5,35 +5,60 @@ Jtracker is an open-source job and project tracking tool designed to streamline 
 
 ---
 
+## Preview
 # Slideshow ảnh trên GitHub Markdown
 
 <details>
-  <summary>Ảnh 1</summary>
+  <summary> 1</summary>
   <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/1_wzk0y8.png" width="500">
 </details>
 
 <details>
-  <summary>Ảnh 2</summary>
+  <summary> 2</summary>
   <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/3_qchjxy.png" width="500">
 </details>
 
 <details>
-  <summary>Ảnh 3</summary>
+  <summary> 3</summary>
   <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/4_w4z1sg.png" width="500">
 </details>
 
+<details>
+  <summary> 4</summary>
+  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/5_nnmdra.png" width="500">
+</details>
+
+<details>
+  <summary> 5</summary>
+  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/6_ulpafb.png" width="500">
+</details>
+
+<details>
+  <summary> 6</summary>
+  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/8_ajghln.png" width="500">
+</details>
+
+<details>
+  <summary> 7</summary>
+  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527928/7_cxgicy.png" width="500">
+</details>
+
+<details>
+  <summary> 8</summary>
+  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/9_jiek1g.png" width="500">
+</details>
+
+<details>
+  <summary> 9</summary>
+  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/10_pu1b0m.png" width="500">
+</details>
+
+<details>
+  <summary> 10</summary>
+  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739528336/Screenshot_2025-02-14_at_17.18.33_jsidwz.png" width="500">
+</details>
 
 
-1. [![Image 1](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/1_wzk0y8.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/1_wzk0y8.png)
-2. [![Image 2](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/3_qchjxy.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/3_qchjxy.png)
-3. [![Image 3](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/4_w4z1sg.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/4_w4z1sg.png)
-4. [![Image 4](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/5_nnmdra.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/5_nnmdra.png)
-5. [![Image 5](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/6_ulpafb.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/6_ulpafb.png)
-6. [![Image 6](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/8_ajghln.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/8_ajghln.png)
-7. [![Image 7](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527928/7_cxgicy.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527928/7_cxgicy.png)
-8. [![Image 8](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/9_jiek1g.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/9_jiek1g.png)
-9. [![Image 9](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/10_pu1b0m.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/10_pu1b0m.png)
-10. [![Image 10](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739528336/Screenshot_2025-02-14_at_17.18.33_jsidwz.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739528336/Screenshot_2025-02-14_at_17.18.33_jsidwz.png)
 
 
 ## Table of Contents

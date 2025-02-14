@@ -16,7 +16,7 @@ const EmailAuthForm = ({
 
     const handleButtonClick = (e) => {
         if (firstClick) {
-            e.preventDefault(); // Ngăn form submit ngay lần đầu
+            e.preventDefault();
             setShowForm(true);
             setFirstClick(false);
         }
@@ -25,10 +25,9 @@ const EmailAuthForm = ({
     return (
         <Form onSubmit={(e) => {
             if (firstClick) {
-                // Ngăn form submit lần đầu tiên khi người dùng nhấn vào button
                 handleButtonClick(e);
             } else {
-                // Sau khi form đã được mở, thực thi handleEmailAuth
+
                 handleEmailAuth(e);
             }
         }}

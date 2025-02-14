@@ -9,7 +9,7 @@ const GoogleAuthButton = ({ mode, handleGoogleAuth }) => {
                 <img
                     alt="google-logo"
                     src={googleLogo} // Sử dụng hình ảnh đã import
-                    style={{ width: "40px", height: "40px", marginRight: "10px" }} // Điều chỉnh kích thước và khoảng cách
+                    style={{ width: "40px", height: "40px", marginRight: "10px" }}
                 />
                 {mode === "signin" ? "Sign In with Google" : "Sign Up with Google"}
             </Button>

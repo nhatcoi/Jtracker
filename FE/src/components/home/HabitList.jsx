@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Button, Card, ListGroup, Spinner, Form, Dropdown, Collapse, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faEllipsisV, faEdit, faEye, faTimes, faUndo,faCheck, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faEllipsisV, faEdit, faTimes, faUndo,faCheck, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import api from "../../util/api";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
@@ -30,9 +30,12 @@ const HabitList = ({ habits, loading, error, onHabitClick, onUpdateHabit }) => {
     const handleSaveEdit = useCallback(async () => {
         if (!editingHabit) return;
 
-        const formattedReminder = editingHabit.reminder.includes(':')
-            ? `${editingHabit.reminder}:00`
-            : `${editingHabit.reminder}:00`;
+        const formattedReminder = editingHabit.reminder.includes(":")
+            ? editingHabit.reminder.split(":").length === 2
+                ? `${editingHabit.reminder}:00`
+                : editingHabit.reminder
+            : editingHabit.reminder;
+
 
         try {
             const response = await api.put(`/habits/${editingHabit.id}`, {
@@ -101,7 +104,7 @@ const HabitList = ({ habits, loading, error, onHabitClick, onUpdateHabit }) => {
     const handleFail = useCallback(async (habitId) => {
         try {
             const response = await api.put(`/habits/${habitId}`, {
-                status: "FAIL",
+                status: "FAILED",
                 endDate: dayjs().format("YYYY-MM-DD"),
             });
             if (response.status !== 200) throw new Error("Failed to update habit.");
@@ -221,13 +224,14 @@ const HabitList = ({ habits, loading, error, onHabitClick, onUpdateHabit }) => {
                                                                     style={{cursor: "pointer"}}>
                                                         <div>
                                                             <h6>{habit.name}</h6>
-                                                            <p>{habit.id}</p>
-                                                            <p>{habit.frequency}</p>
-                                                            <p>{habit.status}</p>
-                                                            <p>{habit.description}</p>
-                                                            <p>Reminder: {habit.reminder}</p>
-                                                            <p>Goal: {habit.achievedPeriod}/{habit.goal}</p>
+                                                            <div className="d-flex justify-content-between gap-5">
+                                                                <p><strong>Description:</strong> {habit.description}</p>
+                                                                <p><strong>Frequency:</strong> {habit.frequency}</p>
+                                                                <p><strong>Reminder:</strong> {habit.reminder}</p>
+                                                                <p><strong>Goal:</strong>Goal: {habit.achievedPeriod}/{habit.goal}</p>
+                                                            </div>
                                                         </div>
+
 
                                                         <div className="d-flex align-items-center">
                                                             <Button variant="success" className="mx-2"
@@ -333,7 +337,7 @@ const HabitList = ({ habits, loading, error, onHabitClick, onUpdateHabit }) => {
                                                                     style={{cursor: "pointer"}}>
                                                         <div>
                                                             <h6>{habit.name}</h6>
-                                                            <p>{habit.description}</p>
+                                                            <p><strong>Description:</strong> {habit.description}</p>
                                                             <p className="text-muted">Quit: {elapsedTimes[habit.id] || "0h 0m 0s"} ago</p>
                                                         </div>
                                                         <div className="d-flex align-items-center">
@@ -455,9 +459,6 @@ const HabitList = ({ habits, loading, error, onHabitClick, onUpdateHabit }) => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-
-
 
         </div>
     );

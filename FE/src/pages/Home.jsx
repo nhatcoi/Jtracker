@@ -14,7 +14,6 @@ const Home = ({ user }) => {
     const handleSignOut = async () => {
         try {
             const accessToken = sessionStorage.getItem("accessToken");
-            console.log("accesstoken: ", accessToken);
             if (accessToken) {
                 await apiDefault.post("/auth/logout", {}, {
                     headers: { Authorization: `Bearer ${accessToken}` },

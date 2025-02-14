@@ -51,7 +51,7 @@ api.interceptors.request.use(
 api.interceptors.response.use(
     response => response,
     async error => {
-        if (error.response && error.response.status === 403) {
+        if (error.response && error.response.status === 401) {
             console.log("Access token hết hạn, đang refresh...");
             const newAccessToken = await refreshAccessToken();
 

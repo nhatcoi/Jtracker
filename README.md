@@ -5,6 +5,16 @@ Jtracker is an open-source job and project tracking tool designed to streamline 
 
 ---
 
+
+<iframe height="300" style="width: 100%;" scrolling="no" title="Image Overlay Slider" src="https://codepen.io/pizza3/embed/ZyGYRK?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/pizza3/pen/ZyGYRK">
+  Image Overlay Slider</a> by Yugam (<a href="https://codepen.io/pizza3">@pizza3</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+
+
+
 ## Table of Contents
 
 - [Project Goals](#project-goals)

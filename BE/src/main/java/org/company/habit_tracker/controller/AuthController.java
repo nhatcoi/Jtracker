@@ -13,11 +13,9 @@ import org.company.habit_tracker.service.JwtTokenService;
 import org.company.habit_tracker.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -73,14 +71,6 @@ public class AuthController {
 
         jwtTokenService.deleteRefreshToken(refreshToken);
         return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
-    }
-
-    private UUID getAuthenticatedUserId() {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new RuntimeException("User not authenticated");
-        }
-        return UUID.fromString(authentication.getName());
     }
 
 

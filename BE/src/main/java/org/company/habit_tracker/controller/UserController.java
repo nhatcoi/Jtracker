@@ -7,10 +7,12 @@ import org.company.habit_tracker.dto.UserResponse;
 import org.company.habit_tracker.entity.User;
 import org.company.habit_tracker.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.UUID;
+
+import static org.company.habit_tracker.jwt.JwtUtil.getAuthenticatedUserId;
 
 @RestController
 @RequestMapping("/api/users")
@@ -18,14 +20,6 @@ import java.util.UUID;
 public class UserController {
 
     private final UserService userService;
-
-    private UUID getAuthenticatedUserId() {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new RuntimeException("User not authenticated");
-        }
-        return UUID.fromString(authentication.getName());
-    }
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {

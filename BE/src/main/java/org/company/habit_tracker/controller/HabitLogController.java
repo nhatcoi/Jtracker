@@ -4,10 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.company.habit_tracker.entity.HabitLog;
 import org.company.habit_tracker.service.HabitLogService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+
+import static org.company.habit_tracker.jwt.JwtUtil.getAuthenticatedUserId;
 
 @RestController
 @RequestMapping("/api/habit-logs")
@@ -15,13 +16,6 @@ import java.util.UUID;
 public class HabitLogController {
     private final HabitLogService habitLogService;
 
-    private UUID getAuthenticatedUserId() {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new RuntimeException("User not authenticated");
-        }
-        return UUID.fromString(authentication.getName());
-    }
 
     @GetMapping
     public ResponseEntity<?> getHabitLogsToday() {

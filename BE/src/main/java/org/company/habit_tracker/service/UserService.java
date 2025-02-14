@@ -97,8 +97,12 @@ public class UserService {
     }
 
 
-    public User createUserFromGoogle(User user) {
-        return userRepository.save(user);
+    public User createUserFromGoogle(User newUser) {
+
+        Role userRole = roleRepository.findByName("USER")
+                .orElseThrow(() -> new EntityNotFoundException("Role 'USER' not found"));
+        newUser.setRoles(Set.of(userRole));
+        return userRepository.save(newUser);
     }
 
     public void updatePassword(UUID userId, PasswordDTO request) {

@@ -5,11 +5,16 @@ import org.company.habit_tracker.dto.HabitRequest;
 import org.company.habit_tracker.dto.HabitResponse;
 import org.company.habit_tracker.service.HabitService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.UUID;
+
+import static org.company.habit_tracker.jwt.JwtUtil.getAuthenticatedUserId;
 
 @RestController
 @RequestMapping("/api/habits")
@@ -17,13 +22,7 @@ import java.util.UUID;
 public class HabitController {
     private final HabitService habitService;
 
-    private UUID getAuthenticatedUserId() {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new RuntimeException("User not authenticated");
-        }
-        return UUID.fromString(authentication.getName());
-    }
+
 
     @PostMapping
     public ResponseEntity<HabitResponse> createHabit(@RequestBody HabitRequest habit) {

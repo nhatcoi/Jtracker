@@ -5,6 +5,24 @@ Jtracker is an open-source job and project tracking tool designed to streamline 
 
 ---
 
+# Slideshow ảnh trên GitHub Markdown
+
+<details>
+  <summary>Ảnh 1</summary>
+  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/1_wzk0y8.png" width="500">
+</details>
+
+<details>
+  <summary>Ảnh 2</summary>
+  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/3_qchjxy.png" width="500">
+</details>
+
+<details>
+  <summary>Ảnh 3</summary>
+  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/4_w4z1sg.png" width="500">
+</details>
+
+
 
 1. [![Image 1](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/1_wzk0y8.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/1_wzk0y8.png)
 2. [![Image 2](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/3_qchjxy.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/3_qchjxy.png)

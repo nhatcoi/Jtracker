@@ -5,105 +5,17 @@ Jtracker is an open-source job and project tracking tool designed to streamline 
 
 ---
 
-<div class="slider-container">
-  <div class="slider">
-    <div class="slide">
-      <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/1_wzk0y8.png" alt="Image 1">
-    </div>
-    <div class="slide">
-      <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/3_qchjxy.png" alt="Image 2">
-    </div>
-    <div class="slide">
-      <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/4_w4z1sg.png" alt="Image 3">
-    </div>
-    <div class="slide">
-      <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/5_nnmdra.png" alt="Image 4">
-    </div>
-    <div class="slide">
-      <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/6_ulpafb.png" alt="Image 5">
-    </div>
-    <div class="slide">
-      <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/8_ajghln.png" alt="Image 6">
-    </div>
-    <div class="slide">
-      <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527928/7_cxgicy.png" alt="Image 7">
-    </div>
-    <div class="slide">
-      <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/9_jiek1g.png" alt="Image 8">
-    </div>
-    <div class="slide">
-      <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/10_pu1b0m.png" alt="Image 9">
-    </div>
-    <div class="slide">
-      <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739528336/Screenshot_2025-02-14_at_17.18.33_jsidwz.png" alt="Image 10">
-    </div>
-  </div>
-</div>
 
-<style>
-  .slider-container {
-    width: 100%;
-    max-width: 600px;
-    margin: auto;
-    overflow: hidden;
-    border: 2px solid #ccc;
-  }
-
-  .slider {
-    display: flex;
-    width: 100%;
-    animation: slideAnimation 30s infinite;
-  }
-
-  .slide {
-    width: 100%;
-    flex-shrink: 0;
-  }
-
-  .slide img {
-    width: 100%;
-    height: auto;
-  }
-
-  /* CSS Animation for sliding effect */
-  @keyframes slideAnimation {
-    0% {
-      transform: translateX(0);
-    }
-    10% {
-      transform: translateX(-100%);
-    }
-    20% {
-      transform: translateX(-200%);
-    }
-    30% {
-      transform: translateX(-300%);
-    }
-    40% {
-      transform: translateX(-400%);
-    }
-    50% {
-      transform: translateX(-500%);
-    }
-    60% {
-      transform: translateX(-600%);
-    }
-    70% {
-      transform: translateX(-700%);
-    }
-    80% {
-      transform: translateX(-800%);
-    }
-    90% {
-      transform: translateX(-900%);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-</style>
-
-
+1. [![Image 1](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/1_wzk0y8.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/1_wzk0y8.png)
+2. [![Image 2](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/3_qchjxy.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/3_qchjxy.png)
+3. [![Image 3](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/4_w4z1sg.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/4_w4z1sg.png)
+4. [![Image 4](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/5_nnmdra.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/5_nnmdra.png)
+5. [![Image 5](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/6_ulpafb.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/6_ulpafb.png)
+6. [![Image 6](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/8_ajghln.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/8_ajghln.png)
+7. [![Image 7](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527928/7_cxgicy.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527928/7_cxgicy.png)
+8. [![Image 8](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/9_jiek1g.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/9_jiek1g.png)
+9. [![Image 9](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/10_pu1b0m.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/10_pu1b0m.png)
+10. [![Image 10](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739528336/Screenshot_2025-02-14_at_17.18.33_jsidwz.png)](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739528336/Screenshot_2025-02-14_at_17.18.33_jsidwz.png)
 
 
 ## Table of Contents

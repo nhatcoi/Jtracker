@@ -14,7 +14,6 @@ public interface ReminderRepository extends JpaRepository<Reminder, UUID> {
     @Query("SELECT r FROM Reminder r WHERE r.reminderTime BETWEEN :before AND :after")
     List<Reminder> findByReminderTimeBetween(@Param("before") LocalTime now, @Param("after") LocalTime after);
 
-
     @Query("SELECT r FROM Reminder r WHERE r.habit.id = :id")
     Reminder findReminderByHabitId(UUID id);
 }

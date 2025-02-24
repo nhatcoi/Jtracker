@@ -30,7 +30,7 @@ public class HabitCreationAspect {
     private final ReminderRepository reminderRepository;
 
     @AfterReturning(
-            pointcut = "execution(* org.company.habit_tracker.service.HabitService.createHabit(..))",
+            pointcut = "execution(* org.company.habit_tracker.service.serviceImpl.HabitService.createHabit(..))",
             returning = "response"
     )
     public void afterHabitCreation(HabitResponse response) {
@@ -46,7 +46,7 @@ public class HabitCreationAspect {
     }
 
     @AfterReturning(
-            pointcut = "execution(* org.company.habit_tracker.service.HabitService.updateHabit(..))",
+            pointcut = "execution(* org.company.habit_tracker.service.serviceImpl.HabitService.updateHabit(..))",
             returning = "response"
     )
     public void afterHabitUpdate(HabitResponse response) {

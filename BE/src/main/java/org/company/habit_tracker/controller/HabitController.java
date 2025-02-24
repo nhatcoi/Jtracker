@@ -5,12 +5,8 @@ import org.company.habit_tracker.dto.HabitRequest;
 import org.company.habit_tracker.dto.HabitResponse;
 import org.company.habit_tracker.service.HabitService;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.UUID;
 

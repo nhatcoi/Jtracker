@@ -1,4 +1,4 @@
-package org.company.habit_tracker.service;
+package org.company.habit_tracker.service.serviceImpl;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

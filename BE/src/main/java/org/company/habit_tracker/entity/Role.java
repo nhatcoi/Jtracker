@@ -14,8 +14,7 @@ import java.util.Set;
 public class Role {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @Column(name = "id", updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "name", nullable = false, unique = true, length = 50)
@@ -23,12 +22,4 @@ public class Role {
 
     @Column(name = "description", columnDefinition = "text")
     private String description;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "role_permissions",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id")
-    )
-    private Set<Permission> permissions; // Thêm danh sách quyền vào Role
 }

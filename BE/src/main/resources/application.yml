@@ -12,5 +12,5 @@ jwt:
   access-token-expiration: 259200000
 
 url:
-  web: http://localhost:5174
+  web: ${URL_WEB:localhost:5174}
 

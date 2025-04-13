@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, ListGroup, Card, Form, Button, Spinner } from "react-bootstrap";
+import { Layout, Menu, Card, List, Tag, Typography, Statistic, Badge, Skeleton, Empty, Tabs, Tooltip, message, Divider } from "antd";
+import { CheckCircleOutlined, ClockCircleOutlined, CalendarOutlined, AimOutlined, TagOutlined, HistoryOutlined, FileTextOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import { motion, AnimatePresence } from "framer-motion";
+import dayjs from "dayjs";
 import api from "../../util/api.js";
+import "../../css/ManageHabit.css";
+import {habitsApi} from "src/api/habitsApi.js";
+
+const { Sider, Content } = Layout;
+const { Title, Text, Paragraph } = Typography;
+const { TabPane } = Tabs;
 
 const ManageHabit = () => {
     const [habits, setHabits] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+    const [currentTime, setCurrentTime] = useState(dayjs().format("HH:mm:ss"));
     const [activeTab, setActiveTab] = useState("active");
 
     const fetchHabits = async (active) => {
@@ -14,12 +23,13 @@ const ManageHabit = () => {
         setError(null);
 
         try {
-            const response = await api.get("/habits/list", {
-                params: { active }}
-            );
-            setHabits(response.data.content);
+            const habitsData = await habitsApi.getAll({
+                params: active
+            })
+            setHabits(habitsData);
         } catch (err) {
             setError(err.message);
+            message.error("Failed to fetch habits");
         }
         setLoading(false);
     };
@@ -30,7 +40,7 @@ const ManageHabit = () => {
 
     useEffect(() => {
         const timer = setInterval(() => {
-            setCurrentTime(new Date().toLocaleTimeString());
+            setCurrentTime(dayjs().format("HH:mm:ss"));
         }, 1000);
         return () => clearInterval(timer);
     }, []);
@@ -39,103 +49,186 @@ const ManageHabit = () => {
         setActiveTab(tab);
     };
 
+    const getStatusTag = (status) => {
+        switch (status) {
+            case "PROGRESS":
+                return <Tag icon={<ClockCircleOutlined />} color="warning">In Progress</Tag>;
+            case "COMPLETED":
+                return <Tag icon={<CheckCircleOutlined />} color="success">Completed</Tag>;
+            default:
+                return <Tag color="default">{status}</Tag>;
+        }
+    };
+
+    const getActiveTag = (active) => {
+        return active ? 
+            <Tag icon={<CheckCircleOutlined />} color="success">Active</Tag> : 
+            <Tag icon={<CloseCircleOutlined />} color="error">Inactive</Tag>;
+    };
+
+    const menuItems = [
+        {
+            key: "habits-header",
+            label: <Text strong>HABITS</Text>,
+            disabled: true,
+            className: "menu-header"
+        },
+        {
+            key: "active",
+            label: (
+                <div className="menu-item-with-count">
+                    <span>Active</span>
+                    <Badge count={habits.filter(h => h.active).length} className="custom-badge" />
+                </div>
+            ),
+            onClick: () => handleTabClick("active")
+        },
+        {
+            key: "archived",
+            label: (
+                <div className="menu-item-with-count">
+                    <span>Archived</span>
+                    <Badge count={habits.filter(h => !h.active).length} className="custom-badge" />
+                </div>
+            ),
+            onClick: () => handleTabClick("archived")
+        },
+        {
+            key: "logs-header",
+            label: <Text strong>LOGS</Text>,
+            disabled: true,
+            className: "menu-header"
+        },
+        {
+            key: "habit-logs",
+            label: (
+                <div className="menu-item-with-count">
+                    <span>Habit Logs</span>
+                    <Badge count={habits.length} className="custom-badge" />
+                </div>
+            ),
+            disabled: true
+        }
+    ];
+
+    const renderHabitList = () => {
+        if (loading) {
+            return [
+                <Skeleton active avatar paragraph={{ rows: 4 }} key="skeleton-1" />,
+                <Skeleton active avatar paragraph={{ rows: 4 }} key="skeleton-2" />,
+                <Skeleton active avatar paragraph={{ rows: 4 }} key="skeleton-3" />
+            ];
+        }
+
+        if (error) {
+            return <Empty description={<span className="text-danger">{error}</span>} />;
+        }
+
+        if (habits.length === 0) {
+            return <Empty description={`No ${activeTab} habits found`} />;
+        }
+
+        return (
+            <List
+                dataSource={habits}
+                renderItem={(habit) => (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
+                        key={habit.id}
+                    >
+                        <Card 
+                            className="habit-card"
+                            hoverable
+                        >
+                            <div className="habit-card-header">
+                                <div className="habit-title-container">
+                                    <div className="habit-icon">{habit.icon || "📌"}</div>
+                                    <div>
+                                        <Title level={5} className="habit-title">{habit.name}</Title>
+                                        <Paragraph type="secondary" ellipsis={{ rows: 2 }}>
+                                            {habit.description || "No description provided"}
+                                        </Paragraph>
+                                    </div>
+                                </div>
+                                <div className="habit-status">
+                                    {getStatusTag(habit.status)}
+                                </div>
+                            </div>
+
+                            <Divider style={{ margin: "12px 0" }} />
+
+                            <div className="habit-details">
+                                <div className="habit-details-column">
+                                    <div className="habit-detail-item">
+                                        <CalendarOutlined /> <Text strong>Frequency:</Text> {habit.frequency}
+                                    </div>
+                                    <div className="habit-detail-item">
+                                        <AimOutlined /> <Text strong>Goal:</Text> {habit.goal}
+                                    </div>
+                                    <div className="habit-detail-item">
+                                        <TagOutlined /> <Text strong>Type:</Text> {habit.habitType}
+                                    </div>
+                                </div>
+                                <div className="habit-details-column">
+                                    <div className="habit-detail-item">
+                                        <CalendarOutlined /> <Text strong>Start Date:</Text> {dayjs(habit.startDate).format("MMM D, YYYY")}
+                                    </div>
+                                    <div className="habit-detail-item">
+                                        <CalendarOutlined /> <Text strong>End Date:</Text> {habit.endDate ? dayjs(habit.endDate).format("MMM D, YYYY") : "N/A"}
+                                    </div>
+                                    <div className="habit-detail-item">
+                                        <HistoryOutlined /> <Text strong>Created:</Text> {dayjs(habit.createdAt).format("MMM D, YYYY")}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="habit-footer">
+                                {getActiveTag(habit.active)}
+                            </div>
+                        </Card>
+                    </motion.div>
+                )}
+                grid={{ gutter: 16, xs: 1, sm: 1, md: 1, lg: 1, xl: 1, xxl: 1 }}
+            />
+        );
+    };
+
     return (
-        <Row className="p-3">
-            {/* Sidebar - Manage Habits */}
-            <Col md={3}>
-                <ListGroup>
-                    <ListGroup.Item variant="light"><strong>Habits</strong></ListGroup.Item>
-                    <ListGroup.Item
-                        active={activeTab === "active"}
-                        onClick={() => handleTabClick("active")}
-                        className="d-flex justify-content-between align-items-center"
-                        style={{ cursor: "pointer" }}
-                    >
-                        Active
-                        {/*<span className="badge bg-secondary">{habits.filter((habit) => habit.active).length}</span>*/}
-                    </ListGroup.Item>
-                    <ListGroup.Item
-                        active={activeTab === "archived"}
-                        onClick={() => handleTabClick("archived")}
-                        className="d-flex justify-content-between align-items-center"
-                        style={{ cursor: "pointer" }}
-                    >
-                        Archived
-                    </ListGroup.Item>
-
-                    <ListGroup.Item variant="light"><strong>Logs</strong></ListGroup.Item>
-                    <ListGroup.Item className="d-flex justify-content-between align-items-center">Habit Logs <span className="badge bg-secondary">{habits.length}</span></ListGroup.Item>
-                </ListGroup>
-            </Col>
-
-            {/* Habits List */}
-            <Col md={9}>
-                <Card>
-                    <Card.Header className="d-flex justify-content-between align-items-center">
-                        <h5>Habits</h5>
-                        <span>{currentTime}</span>
-                    </Card.Header>
-                    <Card.Body>
-                        {loading ? (
-                            <Spinner animation="border" />
-                        ) : error ? (
-                            <p className="text-danger">{error}</p>
-                        ) : (
-                            <ListGroup>
-                                {habits.map((habit) => (
-                                    <ListGroup.Item key={habit.id} className="p-3 mb-2 bg-light border rounded">
-                                        <div className="d-flex justify-content-between align-items-center">
-                                            <div className="d-flex align-items-center">
-                                                <span className="me-3 fs-4">{habit.icon || "📌"}</span>
-                                                <div>
-                                                    <h6 className="mb-1">{habit.name}</h6>
-                                                    <small className="text-muted">{habit.description}</small>
-                                                </div>
-                                            </div>
-                                            <div>
-                                    <span
-                                        className={`badge ${
-                                            habit.status === "PROGRESS"
-                                                ? "bg-warning"
-                                                : habit.status === "COMPLETED"
-                                                    ? "bg-success"
-                                                    : "bg-secondary"
-                                        }`}
-                                    >
-                                        {habit.status}
-                                    </span>
-                                            </div>
-                                        </div>
-                                        <hr className="my-2" />
-                                        <div className="row">
-                                            <div className="col-md-6">
-                                                <p><strong>Frequency:</strong> {habit.frequency}</p>
-                                                <p><strong>Goal:</strong> {habit.goal}</p>
-                                                <p><strong>Type:</strong> {habit.habitType}</p>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <p><strong>Start Date:</strong> {habit.startDate}</p>
-                                                <p><strong>End Date:</strong> {habit.endDate || "N/A"}</p>
-                                            </div>
-                                        </div>
-                                        <div className="d-flex justify-content-between align-items-center mt-2">
-                                            <small className="text-muted">Created At: {habit.createdAt}</small>
-                                            <span
-                                                className={`badge ${
-                                                    habit.active ? "bg-success" : "bg-danger"
-                                                }`}
-                                            >
-                                    {habit.active ? "Active" : "Inactive"}
-                                </span>
-                                        </div>
-                                    </ListGroup.Item>
-                                ))}
-                            </ListGroup>
-                        )}
-                    </Card.Body>
+        <Layout className="manage-habit-layout">
+            <Sider width={250} theme="light" className="manage-habit-sider">
+                <Menu
+                    mode="inline"
+                    selectedKeys={[activeTab]}
+                    items={menuItems}
+                    className="manage-habit-menu"
+                />
+            </Sider>
+            <Content className="manage-habit-content">
+                <Card
+                    title={
+                        <div className="habit-card-title">
+                            <Title level={4}>Habits</Title>
+                            <Statistic value={currentTime} className="time-statistic" />
+                        </div>
+                    }
+                    className="content-card"
+                >
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeTab}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            {renderHabitList()}
+                        </motion.div>
+                    </AnimatePresence>
                 </Card>
-            </Col>
-        </Row>
+            </Content>
+        </Layout>
     );
 };
 

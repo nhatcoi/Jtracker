@@ -12,5 +12,5 @@ jwt:
   access-token-expiration: 259200000
 
 url:
-  web: "https://jtracker.nhatcoi.space/"
+  web: https://jtracker.nhatcoi.space
 

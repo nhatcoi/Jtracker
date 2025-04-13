@@ -1,67 +1,80 @@
-import axios from 'axios';
-import refreshAccessToken from "./token";
+import axios from "axios";
+import { storageService } from "../services/storageService";
+import { authApi } from "../api/authApi.js"; // thêm dòng này nếu bạn có tách ra
 
 const api = axios.create({
-    baseURL: 'http://localhost:8080/api',
-    withCredentials: true,
+    baseURL: import.meta.env.VITE_API_BASE_URL,
     headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
     },
+    withCredentials: true,
 });
 
-function waitForToken(maxWaitTime = 5000, intervalTime = 100) {
-    return new Promise((resolve, reject) => {
-        let elapsed = 0;
-        const interval = setInterval(() => {
-            const token = sessionStorage.getItem("accessToken");
-            if (token) {
-                clearInterval(interval);
-                resolve(token);
-            }
-            elapsed += intervalTime;
-            if (elapsed >= maxWaitTime) {
-                clearInterval(interval);
-                reject(new Error("Token không có giá trị sau 5 giây"));
-            }
-        }, intervalTime);
+let isRefreshing = false;
+let failedQueue = [];
+
+const processQueue = (error, token = null) => {
+    failedQueue.forEach(prom => {
+        if (error) {
+            prom.reject(error);
+        } else {
+            prom.resolve(token);
+        }
     });
-}
+    failedQueue = [];
+};
 
 api.interceptors.request.use(
-    async (config) => {
-        let token = sessionStorage.getItem("accessToken");
-
-        if (!token) {
-            try {
-                token = await waitForToken();
-            } catch (error) {
-                console.error("Server error, Token not ready", error);
-            }
-        }
-
+    (config) => {
+        const token = storageService.getAccessToken();
         if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+            config.headers["Authorization"] = `Bearer ${token}`;
         }
         return config;
     },
     (error) => Promise.reject(error)
 );
 
-
 api.interceptors.response.use(
-    response => response,
-    async error => {
-        if (error.response && error.response.status === 401) {
-            console.log("Access token hết hạn, đang refresh...");
-            const newAccessToken = await refreshAccessToken();
+    (response) => response,
+    async (error) => {
+        const originalRequest = error.config;
 
-            if (newAccessToken) {
-                sessionStorage.setItem("accessToken", newAccessToken);
-                error.config.headers["Authorization"] = `Bearer ${newAccessToken}`;
-                return api.request(error.config);
-            }
+        if (error.response?.status !== 401 || originalRequest._retry) {
+            return Promise.reject(error);
         }
-        return Promise.reject(error);
+
+        if (isRefreshing) {
+            return new Promise((resolve, reject) => {
+                failedQueue.push({ resolve, reject });
+            })
+                .then(token => {
+                    originalRequest.headers['Authorization'] = `Bearer ${token}`;
+                    return api(originalRequest);
+                })
+                .catch(err => Promise.reject(err));
+        }
+
+        originalRequest._retry = true;
+        isRefreshing = true;
+
+        try {
+            const { accessToken } = await authApi.refreshToken();
+
+            api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
+            processQueue(null, accessToken);
+
+            originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+            return api(originalRequest);
+        } catch (refreshError) {
+            processQueue(refreshError, null);
+            storageService.clearAll();
+            window.location.href = '/auth';
+            return Promise.reject(refreshError);
+        } finally {
+            isRefreshing = false;
+        }
     }
 );
 

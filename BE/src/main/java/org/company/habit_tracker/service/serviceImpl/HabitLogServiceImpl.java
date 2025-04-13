@@ -64,10 +64,13 @@ public class HabitLogServiceImpl implements HabitLogService {
     @Override
     public HabitLog updateHabitLogByHabitId(UUID habitId, HabitLog habitLog) {
         HabitLog habitLogUpdated = habitLogRepository.findHabitLogPeriod(habitId, LocalDate.now());
+
         modelMapper.map(habitLog, habitLogUpdated);
-        habitLogUpdated.getHabit().setAchievedPeriod(habitLog.getAchieved());habitLogUpdated.getHabit().setAchievedPeriod(habitLog.getAchieved());
+
+        habitLogUpdated.getHabit().setAchievedPeriod(habitLog.getAchieved());
         habitLogRepository.save(habitLogUpdated);
-        habitLogUpdated.getHabit().setUser(null);
+
+        habitLogUpdated.getHabit().setUser(null); // Avoid exposing sensitive data
         return habitLogUpdated;
     }
 

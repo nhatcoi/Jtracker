@@ -1,29 +1,16 @@
 spring:
   application:
     name: habit_tracker
-  datasource:
-    url: ${DATABASE_URL}
-    username:  ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: none
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
+  profiles:
+    active: dev
 
 server:
-  port: 8080
+  port: 8081
 
 jwt:
-  secret: ${JWT_SECRET_KEY}
   expiration: 2592000000
-  access-token-expiration: 1800000
+  access-token-expiration: 259200000
 
 url:
-  web: http://localhost:5173
+  web: http://localhost:5174
 
-firebase:
-  service-account-path: "jtracker-adminsdk.json"

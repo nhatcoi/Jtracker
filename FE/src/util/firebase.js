@@ -1,15 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
-const firebaseConfig = {
-    apiKey:
-    authDomain:
-    projectId:
-    storageBucket:
-    messagingSenderId:
-    appId:
-    measurementId:
-};
+const firebaseConfig = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG);
 
 const app = initializeApp(firebaseConfig);
 

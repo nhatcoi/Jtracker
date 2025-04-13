@@ -1,0 +1,142 @@
+/* ManageHabit.css */
+
+.manage-habit-layout {
+  min-height: calc(100vh - 64px);
+  background-color: #f5f5f5;
+}
+
+.manage-habit-sider {
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-right: 1px solid #f0f0f0;
+  overflow: auto;
+}
+
+.manage-habit-content {
+  padding: 24px;
+  overflow: auto;
+}
+
+.manage-habit-menu {
+  border-right: none !important;
+}
+
+.menu-header {
+  margin-top: 16px;
+  color: #8c8c8c;
+  font-size: 12px;
+}
+
+.menu-item-with-count {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.custom-badge {
+  margin-left: 8px;
+}
+
+.content-card {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.habit-card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.time-statistic {
+  margin-bottom: 0;
+}
+
+.time-statistic .ant-statistic-content {
+  font-size: 16px;
+  color: #1890ff;
+}
+
+.habit-card {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s;
+}
+
+.habit-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.habit-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.habit-title-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.habit-icon {
+  font-size: 24px;
+  margin-top: 2px;
+}
+
+.habit-title {
+  margin-bottom: 4px !important;
+}
+
+.habit-details {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -8px;
+}
+
+.habit-details-column {
+  flex: 1;
+  min-width: 250px;
+  padding: 0 8px;
+}
+
+.habit-detail-item {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.habit-detail-item .anticon {
+  color: #1890ff;
+}
+
+.habit-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .manage-habit-layout {
+    flex-direction: column;
+  }
+  
+  .manage-habit-sider {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .habit-details {
+    flex-direction: column;
+  }
+  
+  .habit-details-column {
+    width: 100%;
+  }
+}

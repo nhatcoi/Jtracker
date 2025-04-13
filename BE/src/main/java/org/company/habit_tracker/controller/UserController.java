@@ -38,7 +38,7 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUser(userId, userRequest));
     }
 
-    @PostMapping("/reset-password")
+    @PutMapping("/reset-password")
     public ResponseEntity<?> updateUser(@RequestBody PasswordDTO request) {
         UUID userId = getAuthenticatedUserId();
         userService.updatePassword(userId, request);

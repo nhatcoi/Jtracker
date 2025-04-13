@@ -2,6 +2,7 @@ package org.company.habit_tracker.controller;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.company.habit_tracker.dto.TokenRequest;
@@ -11,7 +12,9 @@ import org.company.habit_tracker.entity.User;
 import org.company.habit_tracker.service.AuthService;
 import org.company.habit_tracker.service.JwtTokenService;
 import org.company.habit_tracker.service.UserService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,16 +66,31 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request) {
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
         String refreshToken = extractRefreshToken(request);
         if (refreshToken == null) {
             return unauthorizedResponse("Refresh token not found");
         }
 
         jwtTokenService.deleteRefreshToken(refreshToken);
+
+        ResponseCookie deleteCookie = ResponseCookie.from("refreshToken", "")
+                .path("/")
+                .maxAge(0)
+                .httpOnly(true)
+                .secure(!isDevEnvironment())
+                .sameSite("None")
+                .build();
+
+        response.addHeader(HttpHeaders.SET_COOKIE, deleteCookie.toString());
+
         return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
     }
 
+    private boolean isDevEnvironment() {
+        return "development".equals(System.getenv("SPRING_PROFILES_ACTIVE"))
+                || "dev".equals(System.getenv("SPRING_PROFILES_ACTIVE"));
+    }
 
     private String extractRefreshToken(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();

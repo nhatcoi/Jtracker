@@ -1,56 +1,94 @@
-import React, { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-import { auth } from "../util/firebase.js";
-import { signOut } from "firebase/auth";
+import React, {memo, useState} from 'react';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import SideBar from '../components/home/Sidebar';
+import { useLayout } from '../hooks/useLayout';
+import { ROUTES } from '../constants/routes';
+import { LAYOUT } from '../constants/styles';
 import "bootstrap/dist/css/bootstrap.min.css";
-import SideBar from "../components/home/Sidebar.jsx";
-import "../css/Home.css";
-import apiDefault from "../util/apiDefault"
+import '../css/Home.css';
+import {authApi} from "src/api/authApi.js";
+import {storageService} from "src/services/storageService.js";
+import {Spin} from "antd";
 
-const Home = ({ user }) => {
-    const [sidebarWidth, setSidebarWidth] = useState("20%");
+const Home = ({ user, setUser }) => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [loading, setLoading] = useState(false);
+    const { sidebarWidth, setSidebarWidth } = useLayout();
+
 
     const handleSignOut = async () => {
         try {
-            const accessToken = sessionStorage.getItem("accessToken");
-            if (accessToken) {
-                await apiDefault.post("/auth/logout", {}, {
-                    headers: { Authorization: `Bearer ${accessToken}` },
-                });
-                sessionStorage.removeItem("accessToken");
-            }
-            navigate("/");
-            await signOut(auth);
-
+            setLoading(true);
+            await authApi.logout();
+            console.log("logout ok");
+            navigate(ROUTES.ROOT);
         } catch (error) {
-            console.error("Lỗi đăng xuất:", error);
+            console.error("Logout failed:", error);
+            setLoading(false);
         }
     };
 
+    React.useEffect(() => {
+        const handlePopState = () => {
+            if (location.pathname === "/me" && !storageService.getUser()) {
+                navigate("/auth");
+            }
+        };
+
+        window.addEventListener("popstate", handlePopState);
+        return () => {
+            window.removeEventListener("popstate", handlePopState);
+        };
+    }, [navigate, location]);
 
     return (
-        <div className="main-app">
-            {/* Sidebar */}
-            <SideBar
-                user={user}
-                sidebarWidth={sidebarWidth}
-                setSidebarWidth={setSidebarWidth}
-                onSignOut={handleSignOut}
-            />
+        <>
+            {loading && (
+                <div style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: "rgba(255, 255, 255, 0.6)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: 9999
+                }}>
+                    <Spin size="large" tip="Logging out..." />
+                </div>
+            )}
 
-            {/* Main Journal Area */}
-            <div
-                className="resizable-box habit_manager"
-                style={{
-                    width: `calc(100% - ${sidebarWidth})`, // Cập nhật width dựa theo sidebarWidth
-                    transition: "width 0.4s ease-in-out"
-                }}
-            >
-                <Outlet /> {/* Hiển thị nội dung từ các route con */}
+            <div className="main-app">
+                <SideBar
+                    sidebarWidth={sidebarWidth}
+                    setSidebarWidth={setSidebarWidth}
+                    onSignOut={handleSignOut}
+                />
+                <div
+                    className="resizable-box habit_manager"
+                    style={{
+                        width: `calc(100% - ${sidebarWidth})`,
+                        transition: LAYOUT.SIDEBAR.TRANSITION
+                    }}
+                >
+                    <Outlet />
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
-export default Home;
+Home.propTypes = {
+    user: PropTypes.shape({
+        id: PropTypes.string,
+        email: PropTypes.string,
+        name: PropTypes.string
+    }),
+    setUser: PropTypes.func.isRequired
+};
+
+export default memo(Home);

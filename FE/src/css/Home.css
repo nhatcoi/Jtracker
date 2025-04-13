@@ -164,6 +164,7 @@
 .item_habit p {
     font-size: 12px;
     margin: 0;
+    padding-left: 16px; /* Added left padding to align text */
 }
 
 .list-group-item {
@@ -172,6 +173,7 @@
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
     border-right: none;
+    padding-left: 16px; /* Added left padding to align text */
 }
 
 .list-group-item:last-child {
@@ -182,4 +184,3 @@
 .habit-item p {
     font-size: 13px;
 }
-

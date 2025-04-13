@@ -12,16 +12,17 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
     private final User user;
-    
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        user.getRoles().forEach(role -> {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
-            role.getPermissions().forEach(permission ->
-                    authorities.add(new SimpleGrantedAuthority(permission.getName()))
-            );
-        });
+
+        if (user.getRoles() != null) {
+            for (Role role : user.getRoles()) {
+                authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+            }
+        }
+
         return authorities;
     }
 

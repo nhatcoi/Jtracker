@@ -8,14 +8,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
-@Table(name = "habits")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-//@EntityListeners(HabitEntityListener.class)
+@Entity
+@Table(name = "habits")
 public class Habit {
 
     @Id

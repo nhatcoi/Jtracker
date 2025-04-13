@@ -6,13 +6,13 @@ import lombok.*;
 import java.sql.Time;
 import java.util.UUID;
 
-@Entity
-@Table(name = "reminders")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
+@Table(name = "reminders")
 public class Reminder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

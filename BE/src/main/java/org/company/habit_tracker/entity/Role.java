@@ -5,12 +5,12 @@ import lombok.*;
 
 import java.util.Set;
 
-@Entity
-@Table(name = "roles")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "roles")
 public class Role {
 
     @Id

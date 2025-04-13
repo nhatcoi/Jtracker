@@ -6,13 +6,13 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
-@Table(name = "notifications")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
+@Table(name = "notifications")
 public class Notification {
     @Id
     @GeneratedValue(generator = "UUID")

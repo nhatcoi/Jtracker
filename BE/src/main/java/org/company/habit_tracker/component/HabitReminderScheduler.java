@@ -27,6 +27,7 @@ public class HabitReminderScheduler {
     @Scheduled(cron = "0 * * * * ?", zone = "Asia/Ho_Chi_Minh")
     public void scheduleReminders() {
         LocalTime now = LocalTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
+        log.info("LocalTime.now {}", now);
         LocalTime after = now.plusMinutes(10);
 
         List<Reminder> reminders = reminderRepository.findByReminderTimeBetween(now, after);

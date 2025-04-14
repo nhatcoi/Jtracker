@@ -6,57 +6,11 @@ Jtracker is an open-source job and project tracking tool designed to streamline 
 ---
 
 ## Preview
+<div align="center">
 
-<details>
-  <summary> 1</summary>
-  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/1_wzk0y8.png" width="500">
-</details>
+[![Jtracker](https://res.cloudinary.com/dsmh0vnjh/image/upload/v1744624410/logo_wqujja.png)](https://jtracker.nhatcoi.space)
 
-<details>
-  <summary> 2</summary>
-  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/3_qchjxy.png" width="500">
-</details>
-
-<details>
-  <summary> 3</summary>
-  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/4_w4z1sg.png" width="500">
-</details>
-
-<details>
-  <summary> 4</summary>
-  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/5_nnmdra.png" width="500">
-</details>
-
-<details>
-  <summary> 5</summary>
-  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527926/6_ulpafb.png" width="500">
-</details>
-
-<details>
-  <summary> 6</summary>
-  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/8_ajghln.png" width="500">
-</details>
-
-<details>
-  <summary> 7</summary>
-  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527928/7_cxgicy.png" width="500">
-</details>
-
-<details>
-  <summary> 8</summary>
-  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/9_jiek1g.png" width="500">
-</details>
-
-<details>
-  <summary> 9</summary>
-  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739527927/10_pu1b0m.png" width="500">
-</details>
-
-<details>
-  <summary> 10</summary>
-  <img src="https://res.cloudinary.com/dsmh0vnjh/image/upload/v1739528336/Screenshot_2025-02-14_at_17.18.33_jsidwz.png" width="500">
-</details>
-
+</div>
 
 
 

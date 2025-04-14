@@ -30,27 +30,28 @@ const SideBar = ({ sidebarWidth, setSidebarWidth, onSignOut }) => {
 
     const fetchUserInfo = async () => {
         setLoading(true);
-        if (storageService.getUser()) {
-            console.log("user info sto: ", storageService.getUser());
-            setUserInfo(storageService.getUser());
-            setLoading(false);
-        } else {
-            try {
-                const response = await userApi.getMe();
-                console.log("response: ", response); // ⚠️ in toàn bộ response
-                if (response.provider === "GOOGLE") {
-                    setCheck(true);
-                }
-                console.log("user info: ", response);
-                setUserInfo(response);
-            } catch (err) {
-                console.error("Fetch failed:", err); // ⚠️ In chi tiết lỗi
-                setError(err.message);
-                message.error("Failed to fetch user information");
+        try {
+            let response;
+
+            if (storageService.getUser()) {
+                response = storageService.getUser();
+            } else {
+                response = await userApi.getMe();
             }
+
+            setUserInfo(response);
+
+            if (response.provider === "GOOGLE") {
+                setCheck(true);
+            }
+        } catch (err) {
+            setError(err.message);
+            message.error("Failed to fetch user information");
+        } finally {
             setLoading(false);
         }
     };
+
 
     const handleChangePassword = async () => {
         try {

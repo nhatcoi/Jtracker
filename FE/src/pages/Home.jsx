@@ -22,7 +22,6 @@ const Home = ({ user, setUser }) => {
         try {
             setLoading(true);
             await authApi.logout();
-            console.log("logout ok");
             navigate(ROUTES.ROOT);
         } catch (error) {
             console.error("Logout failed:", error);

@@ -23,7 +23,7 @@ public class HabitReminderScheduler {
     private final ReminderRepository reminderRepository;
 
 //    @Scheduled(cron = "0 * * * * ?")
-    @Scheduled(cron = "0 */9 * * * ?")
+    @Scheduled(cron = "0 */5 * * * ?", zone = "Asia/Ho_Chi_Minh")
     public void scheduleReminders() {
         LocalTime now = LocalTime.now();
         LocalTime before = now.plusMinutes(5);

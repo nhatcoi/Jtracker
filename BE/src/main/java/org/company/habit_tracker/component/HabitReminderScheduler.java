@@ -23,13 +23,17 @@ public class HabitReminderScheduler {
     private final ReminderRepository reminderRepository;
 
 //    @Scheduled(cron = "0 * * * * ?")
-    @Scheduled(cron = "0 */5 * * * ?", zone = "Asia/Ho_Chi_Minh")
+    @Scheduled(cron = "0 * * * * ?", zone = "Asia/Ho_Chi_Minh")
     public void scheduleReminders() {
         LocalTime now = LocalTime.now();
-        LocalTime before = now.plusMinutes(5);
         LocalTime after = now.plusMinutes(10);
 
-        List<Reminder> reminders = reminderRepository.findByReminderTimeBetween(before, after);
+        List<Reminder> reminders = reminderRepository.findByReminderTimeBetween(now, after);
+
+        if (reminders.isEmpty()) {
+            log.info("No reminders to send at this time.");
+            return;
+        }
 
         reminders.forEach(reminder -> {
             Habit habit = reminder.getHabit();

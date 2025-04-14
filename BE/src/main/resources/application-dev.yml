@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5433/habit_tracker}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/habit_tracker}
     username: ${DATABASE_USERNAME:postgres}
     password: ${DATABASE_PASSWORD:nhatcoi123}
   jpa:
@@ -11,6 +11,19 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+  jackson:
+    time-zone: Asia/Ho_Chi_Minh
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${SPRING_MAIL_USERNAME:jtracker@example.com}
+    password: ${SPRING_MAIL_PASSWORD:examplepassword}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 jwt:
   secret: ${JWT_SECRET_KEY:mysecretkeymysecretkeymysecretkeymysecretkeymysecretkey}

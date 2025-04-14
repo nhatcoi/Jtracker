@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Card } from "react-bootstrap";
+import { Spin } from "antd";
 import TabSwitcher from "../components/auth/TabSwitcher";
 import EmailAuthForm from "../components/auth/EmailAuthForm";
 import GoogleAuthButton from "../components/auth/GoogleAuthButton";
@@ -14,11 +15,26 @@ const Auth = ({ setUser }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [emailLoading, setEmailLoading] = useState(false);
+    const [googleLoading, setGoogleLoading] = useState(false);
 
     const { handleEmailAuth, error: emailError, setError: setEmailError } = useEmailAuth(mode, setUser);
     const { handleGoogleAuth, error: googleError, setError: setGoogleError } = useGoogleAuth(setUser);
 
     const combinedError = emailError || googleError;
+
+    const handleEmailSubmit = async (e) => {
+        e.preventDefault();
+        setEmailLoading(true);
+        await handleEmailAuth(email, password, confirmPassword);
+        setEmailLoading(false);
+    };
+
+    const handleGoogleLogin = async () => {
+        setGoogleLoading(true);
+        await handleGoogleAuth();
+        setGoogleLoading(false);
+    };
 
     return (
         <Container className="auth_box d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
@@ -30,22 +46,22 @@ const Auth = ({ setUser }) => {
 
                     {combinedError && <p className="text-danger text-center">{combinedError}</p>}
 
-                    <EmailAuthForm
-                        mode={mode}
-                        email={email}
-                        password={password}
-                        confirmPassword={confirmPassword}
-                        setEmail={setEmail}
-                        setPassword={setPassword}
-                        setConfirmPassword={setConfirmPassword}
-                        handleEmailAuth={(e) => {
-                            e.preventDefault(); // Ngăn reload trang
-                            handleEmailAuth(email, password, confirmPassword);
-                        }}
-                    />
+                    <Spin spinning={emailLoading}>
+                        <EmailAuthForm
+                            mode={mode}
+                            email={email}
+                            password={password}
+                            confirmPassword={confirmPassword}
+                            setEmail={setEmail}
+                            setPassword={setPassword}
+                            setConfirmPassword={setConfirmPassword}
+                            handleEmailAuth={handleEmailSubmit}
+                        />
+                    </Spin>
 
-
-                    <GoogleAuthButton mode={mode} handleGoogleAuth={handleGoogleAuth} />
+                    <Spin spinning={googleLoading}>
+                        <GoogleAuthButton mode={mode} handleGoogleAuth={handleGoogleLogin} />
+                    </Spin>
 
                     <TabSwitcher
                         mode={mode}

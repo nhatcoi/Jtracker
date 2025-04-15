@@ -19,4 +19,12 @@ export default defineConfig({
         strictPort: true,
         allowedHosts: ['.ngrok-free.app'],
     },
+
+    build: {
+        outDir: 'dist',
+    },
+    preview: {
+        port: 4173,
+        strictPort: true,
+    }
 });

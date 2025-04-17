@@ -38,7 +38,15 @@ public class AutoHabitLogService {
         List<Habit> habits = habitRepository.findByStatusAndFrequency(progress, daily);
 
         habits.forEach(habit -> {
-            boolean exists = habitLogRepository.existsByHabitAndPeriod(habit.getId(), today);
+            HabitLog log = new HabitLog();
+            log.setHabit(habit);
+            log.setCreatedAt(LocalDateTime.now());
+            log.setPeriodStart(today);
+            log.setPeriodEnd(today);
+            log.setStatusLog(StatusEnum.PROGRESS.name());
+            log.setAchieved(0);
+            log.getHabit().setAchievedPeriod(0);
+            habitLogRepository.save(log);
 
             LocalDate previousDay = today.minusDays(1);
             HabitLog previousLog = habitLogRepository.findByHabitAndPeriod(habit.getId(), previousDay);
@@ -52,16 +60,6 @@ public class AutoHabitLogService {
                 }
             }
 
-            if (!exists) {
-                HabitLog log = new HabitLog();
-                log.setHabit(habit);
-                log.setCreatedAt(LocalDateTime.now());
-                log.setPeriodStart(today);
-                log.setPeriodEnd(today);
-                log.setStatusLog(StatusEnum.PROGRESS.name());
-                log.setAchieved(0);
-                habitLogRepository.save(log);
-            }
         });
 
     }

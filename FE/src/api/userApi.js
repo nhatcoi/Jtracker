@@ -3,7 +3,7 @@ import { API_ENDPOINTS } from './endpoints';
 import {storageService} from "src/services/storageService.js";
 
 export const userApi = {
-    async   getMe() {
+    async getMe() {
         const response = await api.get(API_ENDPOINTS.USER.ME);
         storageService.setUser(response.data);
         return response.data;

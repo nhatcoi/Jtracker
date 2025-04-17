@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Menu, Avatar, Typography, Button, Modal, Form, Input, Divider, Spin, Card, message, Tooltip } from "antd";
+import { Layout, Menu, Avatar, Typography, Button, Form, Input, Divider, Spin, Card, message, Tooltip } from "antd";
 import { MenuOutlined, AppstoreOutlined, SettingOutlined, PlusOutlined, LogoutOutlined, UserOutlined, EditOutlined } from "@ant-design/icons";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import googleLogo from "../../assests/google.svg";
 import emailLogo from "../../assests/email.svg";
 import "../../css/Sidebar.css";
-import {userApi} from "src/api/userApi.js";
-import {storageService} from "src/services/storageService.js";
+import { userApi } from "src/api/userApi.js";
+import { storageService } from "src/services/storageService.js";
 import { notification } from "antd";
+import ProfileSettingsModal from "./ProfileSettingsModal";
+import AppSettingsModal from "./AppSettingsModal";
 
 const { Sider } = Layout;
 const { Title, Text } = Typography;
@@ -19,6 +21,7 @@ const SideBar = ({ sidebarWidth, setSidebarWidth, onSignOut }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const navigate = useNavigate();
     const [showPopup, setShowPopup] = useState(false);
+    const [showAppSettings, setShowAppSettings] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [check, setCheck] = useState(false);
@@ -52,12 +55,11 @@ const SideBar = ({ sidebarWidth, setSidebarWidth, onSignOut }) => {
         }
     };
 
-
     const handleChangePassword = async () => {
         try {
             const values = await form.validateFields();
             const { oldPassword, newPassword } = values;
-            
+
             if (!oldPassword || !newPassword) {
                 notification.success({
                     message: 'Success',
@@ -65,7 +67,7 @@ const SideBar = ({ sidebarWidth, setSidebarWidth, onSignOut }) => {
                 });
                 return;
             }
-            
+
             await userApi.changePassword(oldPassword, newPassword);
             notification.success({
                 message: 'Success',
@@ -105,7 +107,6 @@ const SideBar = ({ sidebarWidth, setSidebarWidth, onSignOut }) => {
             [name]: value
         }));
     };
-
 
     const toggleSidebar = () => {
         if (isCollapsed) {
@@ -148,7 +149,7 @@ const SideBar = ({ sidebarWidth, setSidebarWidth, onSignOut }) => {
                     key: "settings",
                     icon: <SettingOutlined />,
                     label: "App Settings",
-                    onClick: () => setShowPopup(true)
+                    onClick: () => setShowAppSettings(true)
                 },
                 {
                     type: "divider"
@@ -164,7 +165,7 @@ const SideBar = ({ sidebarWidth, setSidebarWidth, onSignOut }) => {
                 {
                     key: "settings",
                     icon: <SettingOutlined />,
-                    onClick: () => setShowPopup(true)
+                    onClick: () => setShowAppSettings(true)
                 }
             );
         }
@@ -175,7 +176,7 @@ const SideBar = ({ sidebarWidth, setSidebarWidth, onSignOut }) => {
             danger: true,
             onClick: onSignOut
         });
-        
+
         return items;
     };
 
@@ -193,35 +194,35 @@ const SideBar = ({ sidebarWidth, setSidebarWidth, onSignOut }) => {
                 collapsedWidth="100%"
                 className="sidebar-sider"
             >
-                <Button 
-                    type="text" 
-                    icon={<MenuOutlined />} 
-                    onClick={toggleSidebar} 
+                <Button
+                    type="text"
+                    icon={<MenuOutlined />}
+                    onClick={toggleSidebar}
                     className="collapse-btn"
                 />
-                
+
                 {/* Profile button - always visible */}
                 <div className={isCollapsed ? "profile-button-collapsed" : "profile-button-expanded"}>
                     <Tooltip title="Edit Profile">
-                        <Avatar 
-                            size={isCollapsed ? 50 : 80} 
-                            src={userInfo?.avatar || ""} 
+                        <Avatar
+                            size={isCollapsed ? 50 : 80}
+                            src={userInfo?.avatar || ""}
                             icon={<UserOutlined />}
                             className="user-avatar"
                             onClick={() => setShowPopup(true)}
                         />
                     </Tooltip>
-                    
+
                     {/* Only show name when expanded */}
                     {!isCollapsed && (
                         <Title level={5} className="user-name">
                             {userInfo?.firstname || userInfo?.lastname
-                                ? `${userInfo.firstname} ${userInfo.lastname}` 
-                                : "Hello World" }
+                                ? `${userInfo.firstname} ${userInfo.lastname}`
+                                : "Hello World"}
                         </Title>
                     )}
                 </div>
-                
+
                 <Menu
                     mode="inline"
                     theme="light"
@@ -231,97 +232,22 @@ const SideBar = ({ sidebarWidth, setSidebarWidth, onSignOut }) => {
                 />
             </Sider>
 
-            <Modal
-                title="Profile Settings"
-                open={showPopup}
-                onCancel={() => setShowPopup(false)}
-                footer={null}
-                centered
-                className="profile-modal"
-            >
-                {loading ? (
-                    <div className="loading-container">
-                        <Spin size="large" />
-                    </div>
-                ) : userInfo ? (
-                    <>
-                        <div className="profile-header">
-                            <Avatar 
-                                size={80} 
-                                src={userInfo?.avatar || ""} 
-                                icon={<UserOutlined />}
-                            />
-                            <div className="profile-name-inputs">
-                                <Form layout="vertical">
-                                    <Form.Item label="First Name">
-                                        <Input
-                                            name="firstname"
-                                            value={userInfo.firstname}
-                                            onChange={handleInputChange}
-                                            onPressEnter={(e) => handleUpdateUserInfo("firstname", e.target.value)}
-                                            suffix={<EditOutlined />}
-                                        />
-                                    </Form.Item>
-                                    <Form.Item label="Last Name">
-                                        <Input
-                                            name="lastname"
-                                            value={userInfo.lastname}
-                                            onChange={handleInputChange}
-                                            onPressEnter={(e) => handleUpdateUserInfo("lastname", e.target.value)}
-                                            suffix={<EditOutlined />}
-                                        />
-                                    </Form.Item>
-                                </Form>
-                            </div>
-                        </div>
-
-                        <Divider orientation="left">Sign-in Method</Divider>
-                        <Card className="sign-in-method">
-                            <div className="email-display">
-                                <img
-                                    src={check ? googleLogo : emailLogo}
-                                    alt={check ? "Google Logo" : "Email Icon"}
-                                    width="24"
-                                    className="provider-icon"
-                                />
-                                <Text>{userInfo.email}</Text>
-                            </div>
-                        </Card>
-
-                        {!check && (
-                            <>
-                                <Divider orientation="left">Reset Password</Divider>
-                                <Form form={form} layout="vertical" onFinish={handleChangePassword}>
-                                    <Form.Item
-                                        name="oldPassword"
-                                        label="Old Password"
-                                        rules={[{ required: true, message: 'Please enter your old password' }]}
-                                    >
-                                        <Input.Password placeholder="Enter old password" />
-                                    </Form.Item>
-                                    <Form.Item
-                                        name="newPassword"
-                                        label="New Password"
-                                        rules={[
-                                            { required: true, message: 'Please enter your new password' },
-                                            { min: 6, message: 'Password must be at least 6 characters' }
-                                        ]}
-                                    >
-                                        <Input.Password placeholder="Enter new password" />
-                                    </Form.Item>
-                                    <Form.Item>
-                                        <Button type="primary" htmlType="submit">
-                                            Change Password
-                                        </Button>
-                                    </Form.Item>
-                                </Form>
-                            </>
-                        )}
-                    </>
-                ) : (
-                    <Text type="secondary">No user data found.</Text>
-                )}
-            </Modal>
+            <ProfileSettingsModal
+                visible={showPopup}
+                onClose={() => setShowPopup(false)}
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
+                loading={loading}
+                form={form}
+                check={check}
+                handleInputChange={handleInputChange}
+                handleChangePassword={handleChangePassword}
+                handleUpdateUserInfo={handleUpdateUserInfo}
+            />
+            <AppSettingsModal
+                visible={showAppSettings}
+                onClose={() => setShowAppSettings(false)}
+            />
         </motion.div>
     );
 };

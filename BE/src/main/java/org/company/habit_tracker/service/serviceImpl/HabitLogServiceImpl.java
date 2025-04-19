@@ -87,9 +87,12 @@ public class HabitLogServiceImpl implements HabitLogService {
     }
 
     @Override
-    public HabitLog getHabitLogsToday(UUID userId) {
-        return habitLogRepository.findByHabitIdToday(userId, LocalDate.now())
-                .orElseThrow(() -> new RuntimeException("Habit log not found"));
+    public List<HabitLog> getHabitLogsToday(UUID userId) {
+        List<HabitLog> habitLogs = habitLogRepository.findByHabitIdToday(userId, LocalDate.now());
+        for (HabitLog habitLog : habitLogs) {
+            habitLog.getHabit().setUser(null); // Avoid exposing sensitive data
+        }
+        return habitLogs;
     }
 
     @Override

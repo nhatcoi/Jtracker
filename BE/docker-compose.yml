@@ -1,15 +1,15 @@
 services:
   db:
     image: jackie2006/postgres:14.15-alpine3.21
-    container_name: postgres-2
+    container_name: psql
     env_file:
       - .env
     volumes:
-      - postgres-old-volume:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql/data
     ports:
       - "5433:5432"
     networks:
-      - backend-2
+      - jtracker
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres_user -d postgresdb" ]
       interval: 30s
@@ -30,16 +30,17 @@ services:
     depends_on:
       - db
     networks:
-      - backend-2
+      - jtracker
 
 
 volumes:
-  postgres-old-volume:
+  postgres:
     external: true
-    name: 40112f4fc0ee694043967885caa46874548d97af2ac31459f1396ccfb715e52b
+    name: jackie-postgres
 
 networks:
-  backend-2:
+  jtracker:
     driver: bridge
+
 
 

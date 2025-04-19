@@ -13,7 +13,6 @@ FROM openjdk:17
 WORKDIR /app
 
 COPY --from=builder /build/target/*.jar /app/app.jar
-COPY jtracker-adminsdk.json /app/config/jtracker-adminsdk.json
 EXPOSE 8080
 
 # Run the application

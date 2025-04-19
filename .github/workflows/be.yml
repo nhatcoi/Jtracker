@@ -52,5 +52,6 @@ jobs:
                 docker run -d \
                   --name jtracker \
                   --env-file /home/jackie/ENV/jtracker/.env \
+                  -v /home/jackie/ENV/jtracker/jtracker-adminsdk.json:/app/config/jtracker-adminsdk.json \
                   -p 8080:8080 \
                   ${{ secrets.DOCKER_USERNAME }}/jtracker:latest

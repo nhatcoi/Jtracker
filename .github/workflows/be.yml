@@ -1,0 +1,56 @@
+name: Deploy Spring Boot to VPS
+
+on:
+  push:
+    paths:
+      - 'BE/**'
+    branches:
+      - main
+
+jobs:
+    build:
+        runs-on: ubuntu-22.04
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
+
+          - name: Set up Docker
+            uses: docker/setup-buildx-action@v2
+
+          - name: Build Docker image
+            run: |
+              cd BE  # Chuyển vào thư mục BE
+              docker build -t jtracker .  # Build Docker image từ Dockerfile trong thư mục BE
+
+          - name: Login to Docker Hub
+            uses: docker/login-action@v2
+            with:
+              username: ${{ secrets.DOCKER_USERNAME }}
+              password: ${{ secrets.DOCKER_PASSWORD }}
+
+          - name: Push Docker image
+            run: |
+              docker tag jtracker ${{ secrets.DOCKER_USERNAME }}/jtracker:latest
+              docker push ${{ secrets.DOCKER_USERNAME }}/jtracker:latest
+              
+          - name: Deploy on VPS
+            uses: appleboy/ssh-action@v0.1.0
+            with:
+              host: ${{ secrets.VPS_HOST }}
+              username: ${{ secrets.VPS_USER }}
+              key: ${{ secrets.SSH_PRIVATE_KEY }}
+              port: 22
+              script: |
+                echo ">>> Pulling latest Docker image"
+                docker pull ${{ secrets.DOCKER_USERNAME }}/jtracker:latest
+                
+                echo ">>> Stopping & removing old container"
+                docker stop jtracker || true
+                docker rm jtracker || true
+                
+                echo ">>> Running new container with .env file"
+                docker run -d \
+                  --name jtracker \
+                  --env-file /home/jackie/ENV/jtracker/.env \
+                  -p 8080:8080 \
+                  ${{ secrets.DOCKER_USERNAME }}/jtracker:latest

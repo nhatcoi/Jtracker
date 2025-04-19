@@ -52,25 +52,25 @@
     width: 100%;
 }
 
-/* Media Queries */
+
 @media (max-width: 1200px) {
     .frame h1 {
-        font-size: 55px; /* Smaller font for large tablets and smaller screens */
+        font-size: 55px;
     }
 
     .animated-button {
-        font-size: 14px; /* Smaller button font size */
-        padding: 0.8em 2.5em; /* Adjust button padding */
+        font-size: 14px;
+        padding: 0.8em 2.5em;
     }
 }
 
 @media (max-width: 992px) {
     .frame h1 {
-        font-size: 45px; /* Adjust heading size for medium screens */
+        font-size: 45px;
     }
 
     .frame p {
-        font-size: 16px; /* Smaller paragraph font size */
+        font-size: 16px;
     }
 
     .animated-button {
@@ -81,47 +81,47 @@
 
 @media (max-width: 768px) {
     .frame h1 {
-        font-size: 40px; /* Smaller font size for mobile screens */
+        font-size: 40px;
     }
 
     .frame p {
-        font-size: 15px; /* Even smaller paragraph font size */
-        margin-bottom: 1rem; /* Adjust margin */
+        font-size: 15px;
+        margin-bottom: 1rem;
     }
 
     .animated-button {
         font-size: 13px;
-        padding: 0.8em 1.8em; /* Adjust padding for mobile */
+        padding: 0.8em 1.8em;
     }
 }
 
 @media (max-width: 576px) {
     .frame h1 {
-        font-size: 35px; /* Adjust heading size for extra small screens */
+        font-size: 35px;
     }
 
     .frame p {
         font-size: 14px;
-        margin-bottom: 1rem; /* Further adjust margin for mobile */
+        margin-bottom: 1rem;
     }
 
     .animated-button {
         font-size: 12px;
-        padding: 0.8em 1.5em; /* Reduce button padding */
+        padding: 0.8em 1.5em;
     }
 }
 
 @media (max-width: 400px) {
     .frame h1 {
-        font-size: 30px; /* Even smaller font size for very small screens */
+        font-size: 30px;
     }
 
     .frame p {
-        font-size: 12px; /* Adjust paragraph text size */
+        font-size: 12px;
     }
 
     .animated-button {
         font-size: 12px;
-        padding: 0.8em 1.2em; /* Reduce padding even more */
+        padding: 0.8em 1.2em;
     }
 }

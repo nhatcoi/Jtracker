@@ -24,7 +24,7 @@ public class HabitReminderScheduler {
     private final ReminderRepository reminderRepository;
 
 //    @Scheduled(cron = "0 * * * * ?")
-    @Scheduled(cron = "0 * * * * ?", zone = "Asia/Ho_Chi_Minh")
+    @Scheduled(cron = "0 */5 * * * ?", zone = "Asia/Ho_Chi_Minh")
     public void scheduleReminders() {
         LocalTime now = LocalTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         log.info("LocalTime.now {}", now);

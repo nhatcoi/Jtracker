@@ -25,7 +25,7 @@ public interface HabitLogRepository extends JpaRepository<HabitLog, UUID> {
 
     @Query("SELECT h FROM HabitLog h WHERE h.habit.user.id = :userId AND " +
             "(h.periodStart <= :today AND h.periodEnd >= :today)")
-    Optional<HabitLog> findByHabitIdToday(@Param("userId") UUID userId, @Param("today") LocalDate today);
+    List<HabitLog> findByHabitIdToday(@Param("userId") UUID userId, @Param("today") LocalDate today);
 
 
     @Query("SELECT h FROM HabitLog h WHERE h.habit.id = :habitId AND " +
